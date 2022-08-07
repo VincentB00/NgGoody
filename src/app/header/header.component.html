@@ -1,0 +1,24 @@
+<div class="custom-container">
+  <nav>
+    <img src="/assets/img/goodyLogoSmall.png" alt="Goody Logo" class="logo">
+    <ul>
+      <li><a href="#" routerLink="/home" routerLinkActive="custom-active">Home</a></li>
+      <li><a href="#" (click)="$event.preventDefault();" routerLinkActive="custom-active">About</a></li>
+      <li><a href="#" (click)="$event.preventDefault();" routerLinkActive="custom-active">Dash Board</a></li>
+      <li *ngIf="!authService.isLogin()"><a href="#" routerLink="/register" routerLinkActive="custom-active">Register</a></li>
+      <li *ngIf="!authService.isLogin()"><a href="#" routerLink="/login" routerLinkActive="custom-active">Login</a></li>
+      <li  *ngIf="authService.isLogin()">
+        <a href="#" (click)="$event.preventDefault();" [matMenuTriggerFor]="menu">{{getUserName()}}</a>
+        <mat-menu #menu="matMenu">
+          <ul class="drop-down">
+            <li><a href="#" routerLink="/account/information">Account</a></li>
+            <li><a href="#" (click)="$event.preventDefault();">My Post</a></li>
+            <li><a href="#" (click)="$event.preventDefault();">Shopping cart</a></li>
+            <li><a href="#" (click)="$event.preventDefault();">My Order</a></li>
+            <li><a href="#" (click)="$event.preventDefault(); signOut()">Sign Out</a></li>
+          </ul>
+        </mat-menu>
+      </li>
+    </ul>
+  </nav>
+</div>

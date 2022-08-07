@@ -1,0 +1,39 @@
+<div class="box">
+  <form #registerFormInstance="ngForm" (ngSubmit)="submitHandler(registerFormInstance)">
+    <h1 class="text-center">Register</h1>
+    <ul>
+      <li><label for="username">Username *</label></li>
+      <li><input type="text" id="username" name="username" (keyup)="checkValidUsername(registerFormInstance)" ngModel ></li>
+      <li *ngIf="usernameError"><h5 style="color: red; font-size: large;">{{usernameError.trim()}}</h5></li>
+      
+      <li><label for="password">Password <span [ngStyle]="{'color': passwordColor}">*</span></label></li>
+      <li><input type="password" id="password" name="password" (keyup)="checkPasswordStrength(registerFormInstance)" ngModel></li>
+      <li *ngIf="passwordError"><h5 style="color: red; font-size: large;">{{passwordError.trim()}}</h5></li>
+
+      <li><label for="confirmPassword">re-Password *</label></li>
+      <li><input type="password" id="confirmPassword" name="confirmPassword" ngModel></li>
+      <li *ngIf="confirmPasswordError"><h5 style="color: red; font-size: large;">{{confirmPasswordError.trim()}}</h5></li>
+
+      <li><label for="first_name">First Name *</label></li>
+      <li><input type="text" id="first_name" name="first_name" ngModel></li>
+      <li *ngIf="firstNameError"><h5 style="color: red; font-size: large;">{{firstNameError.trim()}}</h5></li>
+
+      <li><label for="last_name">Last Name *</label></li>
+      <li><input type="text" id="last_name" name="last_name" ngModel></li>
+      <li *ngIf="lastNameError"><h5 style="color: red; font-size: large;">{{lastNameError.trim()}}</h5></li>
+
+      <li><label for="middle_name">Middle Name</label></li>
+      <li><input type="text" id="middle_name" name="middle_name" ngModel></li>
+      <li *ngIf="middleNameError"><h5 style="color: red; font-size: large;">{{middleNameError.trim()}}</h5></li>
+
+      <li><label for="email">email *</label></li>
+      <li><input type="email" id="email" name="email" (keyup)="checkValidEmail(registerFormInstance)" ngModel></li>
+      <li *ngIf="emailError"><h5 style="color: red; font-size: large;">{{emailError.trim()}}</h5></li>
+      
+    </ul>
+    <div class="middle">
+      <button mat-raised-button color="warn" (click)="register(registerFormInstance)">Register</button>
+      or <a href="#" routerLink="/login">Login</a>?
+    </div>
+  </form>
+</div>

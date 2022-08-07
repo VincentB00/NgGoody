@@ -1,0 +1,52 @@
+.box
+{
+    border: 3px solid black;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    margin-bottom: 80%;
+
+    border-radius: 5%;
+
+    background: rgb(255,199,102);
+    background: linear-gradient(0deg, rgba(255,199,102,1) 0%, rgba(187,255,249,1) 16%, rgba(217,255,255,1) 100%);
+
+    ul
+    {
+        list-style: none;
+        li
+        {
+            margin-left: auto;
+            margin-right: auto;
+            padding-right: 30px;
+            padding-top: 5px;
+        }
+    }
+
+    label
+    {
+        font-size: x-large;
+    }
+
+    input
+    {
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: x-large;
+    }
+}
+
+.middle
+{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+
+    button
+    {
+        font-size: x-large;
+    }
+}

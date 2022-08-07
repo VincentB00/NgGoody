@@ -1,0 +1,30 @@
+<div class="overall">
+  <form #loginFormInstance="ngForm" (ngSubmit)="ngFormHandler(loginFormInstance)">
+    <h1 class="text-center">Login</h1>
+    <ul>
+      <li *ngIf="loginFail">
+        <h5 style="color: red;">can't login wrong username or password</h5>
+      </li>
+      <li>
+        <label for="username">Username</label>
+      </li>
+      <li>
+        <input id="username" type="text" name="username" ngModel>
+      </li>
+      <li>
+        <label for="password">Password</label>
+      </li>
+      <li>
+        <input id="password" type="password" name="password" ngModel>
+      </li>
+      
+    </ul>
+    <div class="middle">
+      <button mat-raised-button color="warn">Login</button>
+      <span> or <a href="#" routerLink="/register">Register</a> an account?</span> 
+    </div>
+    <div class="middle-button">
+      
+    </div>
+  </form>
+</div>
