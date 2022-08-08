@@ -63,7 +63,8 @@ export class AuthService
 
   logout(): Observable<Response>
   {
-    return this.httpClient.post<Response>(
+    return this.httpClient.get<Response>
+    (
       `${environment.api}/logout`,
       //for cookie session based. set cookie/carry cookie
       {withCredentials: true}

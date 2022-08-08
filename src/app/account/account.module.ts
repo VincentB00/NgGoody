@@ -3,7 +3,8 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AccountInformationComponent } from "./account-overall/account-information/account-information.component";
 import { AccountOverallComponent } from './account-overall/account-overall.component';
-import {MatListModule} from '@angular/material/list';
+import { FormsModule } from "@angular/forms";
+import { CustomStyleModule } from "../shared/modules/custome-style/custome-style.module";
 
 const routes: Routes = [
     {
@@ -25,7 +26,8 @@ const routes: Routes = [
       ],
       imports: [
         CommonModule,
-        MatListModule,
+        FormsModule,
+        CustomStyleModule,
         RouterModule.forChild(routes)
       ]
 })

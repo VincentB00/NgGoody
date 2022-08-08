@@ -15,6 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatListModule} from '@angular/material/list';
+import { NgVarDirective } from './shared/directives/ng-var.directive';
 
 @NgModule({
   declarations: [				
@@ -22,7 +23,8 @@ import {MatListModule} from '@angular/material/list';
       HeaderComponent,
       LoginComponent,
       RegisterComponent,
-      HomeComponent
+      HomeComponent,
+      NgVarDirective
    ],
   imports: [
     BrowserModule,

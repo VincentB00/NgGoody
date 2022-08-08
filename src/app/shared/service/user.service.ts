@@ -21,6 +21,12 @@ export class UserService
   {
     return this.authService.getUser();
   }
+
+  updateUser(): User
+  {
+    this.authService.updateUser();
+    return this.getCurrentLoginUser();
+  }
   
   isValidUsername(username: string): Observable<Response>
   {
@@ -30,5 +36,10 @@ export class UserService
   registerUser(user: User): Observable<Response>
   {
     return this.httpClient.post<Response>(`${environment.api}/users`, JSON.stringify(user), {'headers': headers});
+  }
+
+  modifyCurrentLoginUser(user: User): Observable<Response>
+  {
+    return this.httpClient.put<Response>(`${environment.api}/users`, JSON.stringify(user), {'headers': headers, withCredentials: true});
   }
 }
