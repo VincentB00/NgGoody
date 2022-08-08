@@ -16,6 +16,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatListModule} from '@angular/material/list';
 import { NgVarDirective } from './shared/directives/ng-var.directive';
+import { ItemDetailComponent } from './item/item-detail/item-detail.component';
 
 @NgModule({
   declarations: [				
@@ -24,7 +25,8 @@ import { NgVarDirective } from './shared/directives/ng-var.directive';
       LoginComponent,
       RegisterComponent,
       HomeComponent,
-      NgVarDirective
+      NgVarDirective,
+      ItemDetailComponent
    ],
   imports: [
     BrowserModule,

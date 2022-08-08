@@ -2,7 +2,7 @@ import { User } from "./User.model";
 
 export interface Item 
 {
-    id:             number;
+    id?:             number;
     name:           string;
     item_condition: string;
     description:    string;
@@ -18,13 +18,13 @@ export interface Item
 
 export interface Category 
 {
-    id:   number;
+    id?:   number;
     name: string;
 }
 
 export interface Image 
 {
-    id:        number;
+    id?:        number;
     url:       string;
     file_name: string;
     size:      number;

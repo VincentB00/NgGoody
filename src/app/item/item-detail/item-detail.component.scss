@@ -1,0 +1,43 @@
+.custom-flex
+{
+    margin-top: 30px;
+    display: flex;
+    gap: 3em;
+    justify-content: center;
+}
+
+.haft-left
+{
+    width: 60%;
+}
+
+.haft-right
+{
+    border: 3px solid black;
+    width: 30%;
+    align-self: flex-start;
+}
+
+.main-image
+{
+    border: 1px solid lightblue;
+    border-radius: 1%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.image-list
+{
+    margin: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    *
+    {
+        width: 50px;
+        border-radius: 5%;
+        font-size: xx-large;
+    }
+}

@@ -1,0 +1,27 @@
+<div class="custom-flex">
+    <div class="haft-left">
+
+        <div class="main-image">
+            <img src="https://aws-vincent-frontend-demo.s3.amazonaws.com/files/user8-cat.png" alt="">
+        </div>
+
+        <div class="image-list">
+            <img *ngFor="let i of images" [src]="i.url" [alt]="i.file_name">
+
+            <button *ngIf="editable" mat-raised-button color="primary">+</button>
+        </div>
+
+        <hr>
+
+        <div>
+            <label for=""><h1><b>Description</b></h1></label>
+            <pre>some description</pre>
+        </div>
+    </div>
+    
+    <div class="haft-right">
+        <div>
+            <h1><b>ItemName</b></h1>
+        </div>
+    </div>
+</div>

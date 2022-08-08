@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { ItemDetailComponent } from './item/item-detail/item-detail.component';
 import { LoginComponent } from './Login/Login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './shared/guard/auth.guard';
@@ -22,6 +23,11 @@ const routes: Routes = [
     path: 'account',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
+  },
+  {
+    path: 'item/:id',
+    // canActivate: [AuthGuard],
+    component: ItemDetailComponent
   },
   {
     path: "**",
