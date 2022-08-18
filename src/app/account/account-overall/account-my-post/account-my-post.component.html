@@ -1,0 +1,64 @@
+<div class="box">
+    <h1 class="text-center my-2" style="color: blue;">my Post</h1>
+    <hr>
+    <ul class="item">
+        <li *ngFor="let item of items" >
+            <div class="box p-1">
+                <a href="#" (click)="$event.preventDefault();" [routerLink]="['/item/', item.id]">
+                    <img *ngIf="item.images && item.images[0]" [src]="item.images[0].url" [alt]="item.images[0].file_name">
+                    <img *ngIf="item.images && !item.images[0]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLCSO6zml5OcjMjT8Q3c4m9Vsr8aD-q-Zrk4GlD9w&s" alt="Stock image">
+                    <div style="font-size: x-large; padding-top: 3px;">{{item.name | filterName: 20}}</div>
+                </a>
+                <h2 *ngIf="!item.discount_price">Price: ${{item.price}}</h2>
+                <h2 *ngIf="item.discount_price">Price: <s>${{item.price}}</s> ${{item.price - item.discount_price}}</h2>
+                
+                <button mat-raised-button color="primary" style="width: 100%;" (click)="seeOffers(item)">See Offer</button>
+            </div>
+        </li>
+    </ul>
+    <button mat-raised-button color="primary" routerLink="/item/0" style="width: 100%;">Create a new post</button>
+</div>
+
+<div class="my-5">
+    <hr>
+    <button mat-raised-button color="primary" style="width: 100%; margin-bottom: 5%;" (click)="updateOffers()">See all Offers</button>
+
+    <div *ngFor="let type of offerService.getStatusTypes()" class="mb-5">
+        <div class="box">
+            <ul>
+                <li><H1>{{type.status}} Offer</H1></li>
+                <li><hr></li>
+                <li class="d-flex flex-wrap gap-5">
+                    <div *ngFor="let offer of getAllOfferByStatus(type.status)">
+
+                        <mat-expansion-panel hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                <h1>Offer Price: ${{offer.price}} For <b>{{offer.item.name}}</b></h1>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <ul>
+                                <li>
+                                    Buyer: {{offer.user!.username}}
+                                </li>
+                                <li>
+                                    Price: ${{offer.price}}
+                                </li>
+                                <li>
+                                    Quantity: {{offer.quantity}}
+                                </li>
+                                <li>
+                                    <textarea disabled="true" style="width: 100%;" [style.height]="getLineHeight(offer.message!) + 1">{{offer.message}}</textarea>
+                                </li>
+                                <li *ngIf="offer.status === 'PENDING'">
+                                    <button mat-raised-button color="primary" style="width: 50%;" (click)="acceptOffer(offer)">Accept Offer</button>
+                                    <button mat-raised-button color="warn" style="width: 50%;" (click)="declineOffer(offer)">Decline Offer</button>
+                                </li>
+                            </ul>
+                        </mat-expansion-panel>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

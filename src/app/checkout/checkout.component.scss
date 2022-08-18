@@ -1,0 +1,38 @@
+.delivery-address
+{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    ul
+    {
+        li
+        {
+            mat-form-field
+            {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.payment
+{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    
+    .card
+    {
+
+        mat-form-field
+        {
+            width: 100%;
+        }
+    }
+}
+
+.place-order
+{
+    width: 80%;
+    margin: auto;
+}

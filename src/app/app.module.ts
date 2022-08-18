@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './Login/Login.component';
 import { RegisterComponent } from './register/register.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
@@ -17,6 +17,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatListModule} from '@angular/material/list';
 import { NgVarDirective } from './shared/directives/ng-var.directive';
 import { ItemDetailComponent } from './item/item-detail/item-detail.component';
+import { CustomStyleModule } from './shared/modules/custome-style/custome-style.module';
+import { OfferComponent } from './item/offer/offer.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { AuthIntercepter } from './shared/service/auth.intercepter';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 @NgModule({
   declarations: [				
@@ -26,7 +31,10 @@ import { ItemDetailComponent } from './item/item-detail/item-detail.component';
       RegisterComponent,
       HomeComponent,
       NgVarDirective,
-      ItemDetailComponent
+      ItemDetailComponent,
+      OfferComponent,
+      CheckoutComponent,
+      OrderDetailComponent
    ],
   imports: [
     BrowserModule,
@@ -34,13 +42,13 @@ import { ItemDetailComponent } from './item/item-detail/item-detail.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatListModule
+    CustomStyleModule,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthIntercepter,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

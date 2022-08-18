@@ -1,0 +1,21 @@
+<div *ngFor="let type of offerService.getStatusTypes()" class="mb-5">
+    <div class="box">
+        <ul>
+            <li><H1>{{type.status}} Offer</H1></li>
+            <li><hr></li>
+            <li class="d-flex flex-wrap gap-5">
+                <div *ngFor="let offer of getAllOfferByStatus(type.status)" class="items">
+                    <div>
+                        <a href="#" (click)="$event.preventDefault(); goToOffer(offer)">
+                            <img *ngIf="offer.item.images && offer.item.images[0]" [src]="offer.item.images[0].url" [alt]="offer.item.images[0].file_name">
+                            <img *ngIf="offer.item.images && !offer.item.images[0]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLCSO6zml5OcjMjT8Q3c4m9Vsr8aD-q-Zrk4GlD9w&s" alt="Stock image">
+                            <div style="font-size: x-large; padding-top: 3px;">{{offer.item.name | filterName : 20}}</div>
+                        </a>
+                        <h2 *ngIf="!offer.item.discount_price">Price: ${{offer.item.price}}</h2>
+                        <h2 *ngIf="offer.item.discount_price">Price: <s>${{offer.item.price}}</s> ${{offer.item.price - offer.item.discount_price}}</h2>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 <div class="box">
-  <form #modifyFormInstance="ngForm">
+  <form>
     <ul>
       <li><h1>Account Information</h1></li>
       <li *ngIf="modifyInformationError">
@@ -9,22 +9,22 @@
       <li>
         <label for="first_name" (click)="display1 = true">First Name: </label>
         <span *ngIf="!display1" (click)="display1 = true"> {{user.first_name}}</span>
-        <input *ngIf="display1" (blur)="display1= false" id="first_name" type="text" name="first_name" [ngModel]="user.first_name" [style.width.ch]="user.first_name.length + 1" (keyup)="fixVariable(modifyFormInstance, 'first_name')">
+        <input *ngIf="display1" (blur)="display1= false" id="first_name" type="text" name="first_name" [(ngModel)]="user.first_name" [style.width.ch]="user.first_name.length + 1">
       </li>
       <li>
         <label for="last_name" (click)="display2 = true">Last Name: </label>
         <span *ngIf="!display2" (click)="display2 = true"> {{user.last_name}}</span>
-        <input *ngIf="display2" (blur)="display2= false" id="last_name" type="text" name="last_name" [ngModel]="user.last_name" [style.width.ch]="user.last_name.length + 1" (keyup)="fixVariable(modifyFormInstance, 'last_name')">
+        <input *ngIf="display2" (blur)="display2= false" id="last_name" type="text" name="last_name" [(ngModel)]="user.last_name" [style.width.ch]="user.last_name.length + 1">
       </li>
       <li>
         <label for="middle_name" (click)="display3 = true">Middle Name: </label>
         <span *ngIf="!display3" (click)="display3 = true"> {{user.middle_name}}</span>
-        <input *ngIf="display3" (blur)="display3= false" id="middle_name" type="text" name="middle_name" [ngModel]="user.middle_name" [style.width.ch]="user.middle_name.length + 2" (keyup)="fixVariable(modifyFormInstance, 'middle_name')">
+        <input *ngIf="display3" (blur)="display3= false" id="middle_name" type="text" name="middle_name" [(ngModel)]="user.middle_name" [style.width.ch]="user.middle_name.length + 2">
       </li>
       <li>
         <label for="email" (click)="display4 = true">Email: </label>
         <span *ngIf="!display4" (click)="display4 = true"> {{user.email}}</span>
-        <input *ngIf="display4" (blur)="display4= false" id="email" type="text" name="email" [ngModel]="user.email" [style.width.ch]="user.email.length + 2" (keyup)="fixVariable(modifyFormInstance, 'email')">
+        <input *ngIf="display4" (blur)="display4= false" id="email" type="text" name="email" [(ngModel)]="user.email" [style.width.ch]="user.email.length + 2">
       </li>
       <li>Created: {{userService.getCurrentLoginUser().create_time}}</li>
       <li>status: {{userService.getCurrentLoginUser().status}}</li>

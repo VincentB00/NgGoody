@@ -22,6 +22,11 @@ export class UserService
     return this.authService.getUser();
   }
 
+  getCopyOfCurrentLoginUser(): User
+  {
+    return structuredClone(this.authService.getUser());
+  }
+
   updateUser(): User
   {
     this.authService.updateUser();
@@ -35,11 +40,12 @@ export class UserService
 
   registerUser(user: User): Observable<Response>
   {
-    return this.httpClient.post<Response>(`${environment.api}/users`, JSON.stringify(user), {'headers': headers});
+    return this.httpClient.post<Response>(`${environment.api}/users`, JSON.stringify(user));
   }
 
   modifyCurrentLoginUser(user: User): Observable<Response>
   {
-    return this.httpClient.put<Response>(`${environment.api}/users`, JSON.stringify(user), {'headers': headers, withCredentials: true});
+    delete user.create_time;
+    return this.httpClient.put<Response>(`${environment.api}/users`, JSON.stringify(user), {withCredentials: true});
   }
 }

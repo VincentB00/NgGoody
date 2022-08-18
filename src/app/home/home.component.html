@@ -1,4 +1,79 @@
-<p>
-  home works!
-</p>
-<img src="https://aws-vincent-frontend-demo.s3.amazonaws.com/files/user8-cat.png" alt="">
+<div class="search-bar">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Search Something</mat-label>
+    <input matInput type="text" [(ngModel)]="searchText">
+    <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button matSuffix mat-icon-button (click)="filter()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+  
+</div>
+
+<div class="home-body">
+  <div class="box selection-list">
+    <ul>
+      <li>
+        <h2 class="text-center">Category</h2>
+        <mat-selection-list #categoryOption>
+          <mat-list-option *ngFor="let category of categories" [value]="category.name" (selectedChange)="filterCategory(categoryOption)">
+            {{category.name}}
+          </mat-list-option>
+        </mat-selection-list>
+        <hr>
+      </li>
+
+      <li>
+        <form #priceRangeForm="ngForm">
+          <h2 class="text-center">Filter</h2>
+          <h3>Price range</h3>
+          <label for="min">Min</label>
+          <div><input id="min" type="number" name="min" style="border-radius: 10px;" min="0" ngModel></div>
+          <label for="max">Max</label>
+          <div><input id ="max" type="number" name="max" style="border-radius: 10px;" min="0" ngModel></div>
+          <button mat-raised-button (click)="min = priceRangeForm.value.min; max = priceRangeForm.value.max; filter()">
+            <mat-icon style="color: green;">attach_money</mat-icon>
+          </button>
+        </form>
+        <hr>
+      </li>
+
+      <li>
+        <h2 class="text-center">Condition</h2>
+        <mat-selection-list #conditionOption>
+          <mat-list-option *ngFor="let condition of itemService.getConditions()" [value]="condition.condition" (selectedChange)="filterCondition(conditionOption)">
+            {{condition.condition}}
+          </mat-list-option>
+        </mat-selection-list>
+        <hr>
+      </li>
+    </ul>
+  </div>
+  
+  <div>
+    <div class="item-list">
+      <div *ngFor="let item of items" class="item" [id]="'item' + item.id" >
+        <a href="#" (click)="$event.preventDefault();" [routerLink]="['/item/', item.id]">
+          <img *ngIf="item.images && item.images[0]" [src]="item.images[0].url" [alt]="item.images[0].file_name">
+          <img *ngIf="item.images && !item.images[0]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLCSO6zml5OcjMjT8Q3c4m9Vsr8aD-q-Zrk4GlD9w&s" alt="Stock image">
+          <div style="font-size: x-large; padding-top: 3px;" >{{item.name | filterName : 20}}</div>
+        </a>
+        <h2 *ngIf="!item.discount_price">Price: ${{item.price}}</h2>
+        <h2 *ngIf="item.discount_price">Price: <s>${{item.price}}</s> ${{item.price - item.discount_price}}</h2>
+      </div>
+    </div>
+
+    <div style="width: 75%; margin-left: auto">
+      <mat-paginator #paginator (page)="padgination(paginator)"
+                [length]="item_length"
+                [pageSize]="10"
+                [pageSizeOptions]="[1, 2, 3, 5, 10, 25, 100]"
+                aria-label="Select page">
+                
+      </mat-paginator>
+    </div>
+  </div>
+</div>

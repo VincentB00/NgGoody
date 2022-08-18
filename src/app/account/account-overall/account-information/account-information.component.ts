@@ -58,15 +58,15 @@ export class AccountInformationComponent implements OnInit {
     if(!this.modifyInformationError)
     {
       let tempUser = structuredClone(this.user);
+
+      tempUser.password = '';
   
       this.userService.modifyCurrentLoginUser(tempUser)
       .subscribe(
         res => {this.diableEdit(); this.userService.updateUser();},
-        err => {this.modifyInformationError = "Sorry we encounter some technicle difficulty at the moment, please try again latter"}
+        err => {this.modifyInformationError = "Sorry we encounter some technicle difficulty at the moment, please try again latter"},
+        () => setTimeout(() => this.resetUser(), 100)
       );
-      
-
-      
     }
   }
 

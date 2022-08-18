@@ -26,7 +26,8 @@ export class AuthService
   {
     this.httpClient.get<User>(`${environment.api}/users`,{withCredentials: true})
     .subscribe(
-      res => {this.user = res}
+      res => {this.user = res},
+      error => this.clearUser()
     );
   }
 

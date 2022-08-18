@@ -7,3 +7,10 @@ export interface Response
     success?: boolean;
     message: string;
 }
+
+export interface Mail 
+{
+    toEmail: string;
+    subject: string;
+    body:    string;
+}

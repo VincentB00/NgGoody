@@ -1,0 +1,58 @@
+<div class="box">
+    <ul>
+        <li><h1>Buying</h1></li>
+        <hr>
+        <li>
+            <div *ngFor="let order of buyingOrders">
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                        <h1>{{order.item.name}}</h1>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ul>
+                        <li>Price: ${{order.price}}</li>
+                        <li>Quantity: {{order.quantity}}</li>
+                        <li>Shipping fee: ${{order.shipping_price}}</li>
+                        <li>Order Total: ${{order.total}}</li>
+                        <li>Date ordered: {{order.purchase_date}}</li>
+                        <li>Order Status: {{order.status}}</li>
+                        <li>
+                            <button mat-raised-button color="primary" style="width: 100%;" [routerLink]="['/order/', order.id]">See more detail</button>
+                            <button mat-raised-button color="warn" style="width: 100%;">Cancel order</button>
+                        </li>
+                    </ul>
+                </mat-expansion-panel>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="box my-5">
+    <ul>
+        <li><h1>Selling</h1></li>
+        <hr>
+        <li>
+            <div *ngFor="let order of sellingOrders">
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                        <h1>{{order.item.name}}</h1>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ul>
+                        <li>Price: ${{order.price}}</li>
+                        <li>Quantity: {{order.quantity}}</li>
+                        <li>Shipping fee: ${{order.shipping_price}}</li>
+                        <li>Order Total: ${{order.total}}</li>
+                        <li>Date ordered: {{order.purchase_date}}</li>
+                        <li>Order Status: {{order.status}}</li>
+                        <li>
+                            <button mat-raised-button color="primary" style="width: 100%;" [routerLink]="['/order/', order.id]">See more detail</button>
+                        </li>
+                    </ul>
+                </mat-expansion-panel>
+            </div>
+        </li>
+    </ul>
+</div>

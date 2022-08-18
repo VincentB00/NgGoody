@@ -14,7 +14,18 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatExpansionModule} from "@angular/material/expansion";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu';
+import { FilterNamePipe } from '../../pipes/filter-name.pipe';
+import { ConfirmDialog } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
+import { FilterNameReversePipe } from '../../pipes/filter-name-reverse.pipe';
+import {MatPaginatorModule} from '@angular/material/paginator';
 @NgModule({
+  declarations: [
+    FilterNamePipe,
+    ConfirmDialog,
+    FilterNameReversePipe
+  ],
   imports: [
     MatButtonModule,
     MatToolbarModule,
@@ -29,7 +40,10 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatBadgeModule,
     MatRadioModule,
     MatExpansionModule,
-    CdkTableModule
+    CdkTableModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatPaginatorModule
   ],
   exports: [
     MatButtonModule,
@@ -45,7 +59,13 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatBadgeModule,
     MatRadioModule,
     MatExpansionModule,
-    CdkTableModule
+    CdkTableModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    FilterNamePipe,
+    ConfirmDialog,
+    FilterNameReversePipe,
+    MatPaginatorModule
   ]
 })
 export class CustomStyleModule { }

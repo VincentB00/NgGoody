@@ -1,0 +1,41 @@
+.custom-container
+{
+    margin-top: 3%;
+    width: 80%;
+    margin-left: auto;
+    margin-left: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 2%;
+    flex-wrap: wrap;
+
+    .item
+    {
+        border: 3px solid green;
+        width: fit-content;
+        border-radius: 10px;
+
+        img
+        {
+            max-width: 600px;
+            max-height: 600px;
+            border-radius: 10px;
+        }
+    }
+
+    .offer
+    {
+        border-radius: 25px;
+        width: 60%;
+        mat-form-field
+        {
+            width: 100%;
+        }
+
+        button
+        {
+            width: 100%;
+        }
+    }
+}
+

@@ -1,27 +1,90 @@
+<label class="hide">
+    <input  style="display: none;"
+            #imageInput
+            type="file"
+            accept="image/*"
+            (change)="processFile(imageInput)">
+</label>
+
 <div class="custom-flex">
     <div class="haft-left">
 
         <div class="main-image">
-            <img src="https://aws-vincent-frontend-demo.s3.amazonaws.com/files/user8-cat.png" alt="">
+            <button *ngIf="editable && !mainImage" mat-raised-button color="primary" style="width: 300px; height: 300px" (click)="imageInput.click()">+</button>
+            <img *ngIf="mainImage" [src]="mainImage.url" alt="main image" style="width: fit-content; max-height: 500px;">
         </div>
 
         <div class="image-list">
-            <img *ngFor="let i of images" [src]="i.url" [alt]="i.file_name">
-
-            <button *ngIf="editable" mat-raised-button color="primary">+</button>
+            <div *ngFor="let i of images">
+                <img [src]="i.url" [alt]="i.file_name" (click)="mainImage = i">
+                <button *ngIf="editable" mat-mini-fab color="warn" (click)="addImageToRemoveImages(i.file_name!)">
+                    <mat-icon>remove_circle_outline</mat-icon>
+                </button>
+            </div>
+            <button *ngIf="editable" mat-raised-button color="primary" (click)="imageInput.click()">+</button>
         </div>
 
         <hr>
 
         <div>
-            <label for=""><h1><b>Description</b></h1></label>
-            <pre>some description</pre>
+            <label (click)="editable && displays[7].value = true" for="description"><h1><b>Description</b></h1></label>
         </div>
+        
+        <textarea *ngIf="!displays[7].value" class="description" disabled="true" [(ngModel)]="tempItem.description" [style.height]="getLineHeight(tempItem.description)"></textarea>
+        <textarea *ngIf="displays[7].value" (blur)="displays[7].value = false" id="description" placeholder="Ex. Specification" class="edit-description" [(ngModel)]="tempItem.description" [style.height]="getLineHeight(tempItem.description)"></textarea>
     </div>
     
     <div class="haft-right">
-        <div>
-            <h1><b>ItemName</b></h1>
-        </div>
+        <hr>
+        <ul class="information-list">
+            <li>
+                <label *ngIf="!displays[1].value" (click)="editable && displays[1].value = true" for="item_name"><b>{{tempItem.name}}</b></label>
+                <input *ngIf="displays[1].value" (blur)="displays[1].value = false" id="item_name" type="text" style="font-size: xx-large;" [(ngModel)]="tempItem.name" [style.width.ch]="tempItem.name.length + 2">
+            </li>
+            <li>
+                <label (click)="editable && displays[2].value = true" for="item_price"><b>Price: $<span *ngIf="!displays[2].value" (click)="editable && displays[2].value = true">{{tempItem.price}}</span></b></label>
+                <input *ngIf="displays[2].value" (blur)="displays[2].value = false" id="item_price" type="number" style="font-size: xx-large;" min="0" [(ngModel)]="tempItem.price" [style.width.ch]="tempItem.price.toString().length + 2">
+            </li>
+            <li *ngIf="editable">
+                <label (click)="editable && displays[3].value = true" for="item_discount"><b>Discount Price: $<span *ngIf="!displays[3].value" (click)="editable && displays[3].value = true">{{tempItem.discount_price}}</span></b></label>
+                <input *ngIf="displays[3].value" (blur)="displays[3].value = false" id="item_discount" type="number" style="font-size: xx-large;" min="0" [(ngModel)]="tempItem.discount_price" [style.width.ch]="tempItem.discount_price.toString().length + 2">
+            </li>
+            <li>
+                <label (click)="editable && displays[4].value = true" for="item_shipping_price">🚚 Ship for: $<span *ngIf="!displays[4].value" (click)="editable && displays[4].value = true">{{tempItem.shipping_price}}</span></label>
+                <input *ngIf="displays[4].value" (blur)="displays[4].value = false" id="item_shipping_price" type="number" style="font-size: large;" min="0" [(ngModel)]="tempItem.shipping_price" [style.width.ch]="tempItem.shipping_price.toString().length + 3">
+            </li>
+            <li>
+                <label (click)="editable && displays[5].value = true" for="item_stock">📦 in stock: <span *ngIf="!displays[5].value" (click)="editable && displays[5].value = true">{{tempItem.stock}}</span></label>
+                <input *ngIf="displays[5].value" (blur)="displays[5].value = false" id="item_stock" type="number" style="font-size: large;" min="0" [(ngModel)]="tempItem.stock" [style.width.ch]="tempItem.stock.toString().length + 3">
+            </li>
+            <li>
+                <label (click)="editable && displays[6].value = true" for="item_condition">Condition: <span *ngIf="!displays[6].value" (click)="editable && displays[6].value = true">{{tempItem.item_condition}}</span></label>
+                <select *ngIf="displays[6].value" (blur)="displays[6].value = false" [(ngModel)]="tempItem.item_condition" style="background-color: transparent;">
+                    <option *ngFor="let c of itemService.getConditions()" [value]="c.condition">{{c.condition}}</option>
+                </select>
+            </li>
+            <li>
+                <label for="item_category">Category: </label>
+                
+                <input *ngIf="editable"  id="item_condition" type="text" style="font-size: large;" [(ngModel)]="tempCategory" [style.width.ch]="tempCategory.length + 5">
+                <button *ngIf="editable" mat-icon-button color="primary" (click)="addCategory()" style="font-size: x-large;">+</button>
+                
+                <ol>
+                    <li *ngFor="let c of tempItem.categories" class="my-2">
+                        {{c.name}}
+                        <button *ngIf="editable" mat-icon-button color="primary" (click)="removeCategory(c.name)" style="font-size: large;">-</button>
+                    </li>
+                </ol>
+            </li>
+
+            <li *ngIf="!editable">
+                <button mat-raised-button color="primary" class="custom-button" (click)="makeOffer()">Make Offer</button>
+            </li>
+        </ul>
     </div>
 </div>
+<div *ngIf="editable && item">
+    <button [disabled]="!detectChange()" (click)="modifyItem()" mat-raised-button color="primary" style="width: 50%;">Save</button>
+    <button [disabled]="!detectChange()" (click)="resetItem()" mat-raised-button color="warn" style="width: 50%;">Revert</button>
+</div>
+<button *ngIf="editable && !item" mat-raised-button color="primary" class="custom-button" (click)="createItem()">Create new Item</button>

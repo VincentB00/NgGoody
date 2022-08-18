@@ -1,0 +1,12 @@
+.item
+{
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    img
+    {
+        max-width: 200px;
+        max-height: 200px;
+    }
+}
+

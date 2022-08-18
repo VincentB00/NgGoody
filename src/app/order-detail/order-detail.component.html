@@ -1,0 +1,41 @@
+<div class="d-flex flex-wrap align-items-start gap-5 my-3" style="width: 90%; margin: auto;">
+    <div class="box">
+        <ul>
+            <div class="item">
+                <a href="#" (click)="$event.preventDefault();" [routerLink]="['/item/', item.id]">
+                    <img *ngIf="item.images && item.images[0]" [src]="item.images[0].url" [alt]="item.images[0].file_name">
+                    <img *ngIf="item.images && !item.images[0]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLCSO6zml5OcjMjT8Q3c4m9Vsr8aD-q-Zrk4GlD9w&s" alt="Stock image">
+                    <div style="font-size: x-large; padding-top: 3px;">{{item.name}}</div>
+                </a>
+                <h2>Current Price: ${{item.price}}</h2>
+                <h2>Current Shipping Price: ${{item.shipping_price}}</h2>
+            </div>
+        </ul>
+    </div>
+
+    <div class="box">
+        <ul>
+            <li><h1>Order Detail</h1></li>
+            <hr>
+            <li><h2>Order infromation</h2></li>
+            <li>Price: ${{order.price}}</li>
+            <li>Quantity: {{order.quantity}}</li>
+            <li>Shipping price: ${{order.shipping_price}}</li>
+            <li>Total: ${{order.total}}</li>
+            <li>Purchase date: {{order.purchase_date}}</li>
+            <hr>
+            <li><h2>Shipping information</h2></li>
+            <li>Reciver Name: {{order.reciever_name}}</li>
+            <li>Reciver phone number: {{order.phone_number}}</li>
+            <li>Address: {{order.shipping_address}}</li>
+            <li>City: {{order.shipping_city}}</li>
+            <li>State: {{order.shipping_state}}</li>
+            <li>Zip: {{order.shipping_zip}}</li>
+            <hr>
+            <li><h2>Delevery information</h2></li>
+            <li>Shipping Label: {{order.shippingLabel}}</li>
+            <li>Current Package location: {{order.current_shipping_location}}</li>
+            <li>Shipping status: {{order.status}}</li>
+        </ul>
+    </div>
+</div>
