@@ -1,0 +1,30 @@
+<div *ngFor="let status of reportSerive.getStatuses()" class="mb-5">
+  <div class="box" *ngIf="getAllReport(status.type).length > 0">
+      <ul>
+          <li><H1>{{status.type}}</H1></li>
+          <hr>
+          <div *ngFor="let report of getAllReport(status.type)">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h1>Report Reason: {{report.reason}}</h1>
+                  </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul>
+                  <li>Item: {{report.item!.name}}</li>
+                  <li>Item ID: {{report.item!.id}}</li>
+                  <li>Report By: {{report.user!.username}}</li>
+                  <li>Reason: {{report.reason}}</li>
+                  <li><textarea cols="50" rows="5">{{report.message}}</textarea></li>
+                  <li>Item Status: {{report.item!.status}}</li>
+                  <li>Status: {{report.status}}</li>
+                  <li *ngIf="report.item!.status !== 'BANDED'"><button mat-raised-button color="warn" style="width: 100%;" (click)="bandItem(report)">Band Item</button></li>
+                  <li *ngIf="report.status !== 'RESOLVE'"><button mat-raised-button color="primary" style="width: 100%;" (click)="resolveReport(report)">Ignore Report</button></li>
+                  <li><button mat-raised-button color="warn" style="width: 100%;" (click)="removeReport(report)">Remove Report</button></li>
+                  <li><button mat-raised-button color="primary" style="width: 100%;" [routerLink]="['/item/',report.item!.id]" >Go to Item</button></li>
+              </ul>
+          </mat-expansion-panel>
+          </div>
+      </ul>
+  </div>
+</div>

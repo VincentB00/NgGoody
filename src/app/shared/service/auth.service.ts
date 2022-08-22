@@ -22,19 +22,27 @@ export class AuthService
 
   constructor(private httpClient: HttpClient, private router: Router, private cookieService: CookieService) { }
 
+  autoCheckSessionLogin()
+  {
+    this.httpClient.get<User>(`${environment.api}/users`,{withCredentials: true})
+    .subscribe(
+      res => {this.user = res},
+      error => {this.clearUser()}
+    );
+  }
+
   updateUser()
   {
     this.httpClient.get<User>(`${environment.api}/users`,{withCredentials: true})
     .subscribe(
       res => {this.user = res},
-      error => this.clearUser()
+      error => {this.user = null}
     );
   }
 
   clearUser()
   {
     this.user = null;
-    // this.cookieService.set('JSESSIONID', 'a', 0, '/', 'localhost', false);
     this.router.navigate(['/login']).catch();
   }
 

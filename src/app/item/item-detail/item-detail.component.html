@@ -6,6 +6,8 @@
             (change)="processFile(imageInput)">
 </label>
 
+<div *ngIf="item && item.status && item.status === 'BANDED'"><h1 class="text-center" style="color: red;">This item have been BANDED</h1></div>
+
 <div class="custom-flex">
     <div class="haft-left">
 
@@ -76,9 +78,18 @@
                     </li>
                 </ol>
             </li>
-
-            <li *ngIf="!editable">
+            
+            <li *ngIf="!editable && item!.status !== 'BANDED' && userService.isLogin()">
                 <button mat-raised-button color="primary" class="custom-button" (click)="makeOffer()">Make Offer</button>
+            </li>
+            <li *ngIf="!editable && item!.status !== 'BANDED' && userService.isLogin()">
+                <button mat-raised-button color="warn" class="custom-button" (click)="reportItem()">Report this item</button>
+            </li>
+            <li *ngIf="!editable && item!.status !== 'BANDED' && userService.isLogin() && (userService.isAdmin() || userService.isOwner())">
+                <button mat-raised-button color="warn" class="custom-button" (click)="bandItem()">Band this item</button>
+            </li>
+            <li *ngIf="!editable && item!.status === 'BANDED' && userService.isLogin() && (userService.isAdmin() || userService.isOwner())">
+                <button mat-raised-button color="warn" class="custom-button" (click)="unbandItem()">unband this item</button>
             </li>
         </ul>
     </div>

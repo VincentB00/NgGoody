@@ -3,7 +3,7 @@
     <hr>
     <ul class="item">
         <li *ngFor="let item of items" >
-            <div class="box p-1">
+            <div *ngIf="item.status !== 'BANDED' || userService.isAdminOrOwner()" class="box p-1">
                 <a href="#" (click)="$event.preventDefault();" [routerLink]="['/item/', item.id]">
                     <img *ngIf="item.images && item.images[0]" [src]="item.images[0].url" [alt]="item.images[0].file_name">
                     <img *ngIf="item.images && !item.images[0]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLCSO6zml5OcjMjT8Q3c4m9Vsr8aD-q-Zrk4GlD9w&s" alt="Stock image">
@@ -24,7 +24,7 @@
     <button mat-raised-button color="primary" style="width: 100%; margin-bottom: 5%;" (click)="updateOffers()">See all Offers</button>
 
     <div *ngFor="let type of offerService.getStatusTypes()" class="mb-5">
-        <div class="box">
+        <div class="box" *ngIf="getAllOfferByStatus(type.status).length > 0">
             <ul>
                 <li><H1>{{type.status}} Offer</H1></li>
                 <li><hr></li>

@@ -74,4 +74,14 @@ constructor(private httpClient: HttpClient, private userService: UserService) { 
   {
     return this.httpClient.get<Category[]>(`${environment.api}/categories`);
   }
+
+  bandItem(itemID: number): Observable<Response>
+  {
+    return this.httpClient.put<Response>(`${environment.api}/items/band/${itemID}`, null, {withCredentials: true})
+  }
+
+  unbandItem(itemID: number): Observable<Response>
+  {
+    return this.httpClient.put<Response>(`${environment.api}/items/unband/${itemID}`, null, {withCredentials: true})
+  }
 }

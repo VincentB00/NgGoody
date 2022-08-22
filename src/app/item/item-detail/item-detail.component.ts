@@ -1,12 +1,16 @@
 import { throwDialogContentAlreadyAttachedError } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, interval, of, take, delay, Observable, observable } from 'rxjs';
+import { ConfirmDialog } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
+import { ReportDialog } from 'src/app/dialog/report-dialog/report-dialog.component';
 import { Image, Item } from 'src/app/shared/model/Item.model';
 import { User } from 'src/app/shared/model/User.model';
 import { ImageService } from 'src/app/shared/service/image.service';
 import { ItemService } from 'src/app/shared/service/item.service';
 import { OfferService } from 'src/app/shared/service/offer.service';
+import { ReportService } from 'src/app/shared/service/report.service';
 import { UserService } from 'src/app/shared/service/user.service';
 
 @Component({
@@ -52,11 +56,13 @@ export class ItemDetailComponent implements OnInit
 
   constructor(
     private ar: ActivatedRoute, 
-    private userService: UserService, 
+    public userService: UserService, 
     public itemService: ItemService, 
     private imageService: ImageService,
     private router: Router,
-    private offerService: OfferService) { }
+    private offerService: OfferService,
+    private reportService: ReportService,
+    private matDialog: MatDialog) { }
 
   ngOnInit(): void 
   {
@@ -107,7 +113,7 @@ export class ItemDetailComponent implements OnInit
     if(!(this.tempItem.categories.some((c) => c.name === this.tempCategory)))
     {
       this.tempItem.categories.push({
-        name: this.tempCategory
+        name: this.tempCategory.toLowerCase()
       });
     }
 
@@ -173,7 +179,7 @@ export class ItemDetailComponent implements OnInit
     .subscribe(
       item => {
         this.uploadNewImage(item.id!)
-        .then(res => this.router.navigate(['./' + item.id]));
+        .then(res => this.router.navigate(['./account/my_post']));
       },
       error => console.log(error)
     );
@@ -239,41 +245,6 @@ export class ItemDetailComponent implements OnInit
     })
   }
 
-  private dummy1(): Promise<void>
-  {
-    let sources: Observable<any>[] = [];
-
-    return new Promise(resolve => {
-      for(let i = 0; i < 10; i++)
-      {
-        let observable = new Observable((ob) => {
-          ob.next("Dummy " + i);
-          ob.complete();
-        })
-        // sources.push(observable);
-      }
-
-      if(sources.length > 0)
-        forkJoin(sources).subscribe(res => {console.log(res), resolve()})
-      else
-        resolve();
-    });
-  }
-
-  private dummy2(): Promise<void>
-  {
-    return new Promise(resolve => {
-      new Observable((ob) => {
-        ob.next("Dummy Two");
-        ob.complete();
-      })
-      .pipe(delay(1000))
-      .subscribe(
-        res => {console.log(res); resolve();}
-      );
-    });
-  }
-
   modifyItem(): void
   {
     if(this.item)
@@ -296,5 +267,51 @@ export class ItemDetailComponent implements OnInit
   {
     this.offerService.offerItem = structuredClone(this.item);
     this.router.navigate(['/offer']);
+  }
+
+  reportItem(): void
+  {
+    let dialog = this.matDialog.open(ReportDialog);
+
+    dialog.afterClosed().subscribe(
+      res => {
+        if(res)
+        {
+          res.item = this.item;
+          this.matDialog.open(ConfirmDialog, {data: {title: 'Item Reported', message: "Item have been reported, thank you for your support", yes: 'ok', no: ''}});
+          this.reportService.createReport(res).subscribe(
+            res => {}
+          );
+        }
+      }
+    );
+  }
+
+  bandItem(): void
+  {
+    let dialog = this.matDialog.open(ConfirmDialog, {data: {title: "Band this item?", message: "You are about to band this item\nare you sure?"}});
+  
+    dialog.afterClosed().subscribe(
+      res => {
+        if(res)
+          this.itemService.bandItem(this.item!.id!).subscribe(
+            res => this.resetItem()
+          );
+      }
+    );
+  }
+
+  unbandItem()
+  {
+    let dialog = this.matDialog.open(ConfirmDialog, {data: {title: "Unband this item?", message: "You are about to unband this item\nare you sure?"}});
+  
+    dialog.afterClosed().subscribe(
+      res => {
+        if(res)
+          this.itemService.unbandItem(this.item!.id!).subscribe(
+            res => this.resetItem()
+          );
+      }
+    );
   }
 }

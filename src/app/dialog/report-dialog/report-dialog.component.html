@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Report this Item?</h1>
+<div mat-dialog-content>
+  <label for="select">Reason</label>
+  <div>
+    <select id="select" [(ngModel)]="report.reason">
+      <option value="Inappropiate">Inappropiate Item</option>
+      <option value="Inappropiate">Inappropiate Item name</option>
+      <option value="Inappropiate">Inappropiate Item category</option>
+      <option value="Inappropiate">Inappropiate Item Description</option>
+      <option value="Inappropiate">Inappropiate Item picture</option>
+      <option value="Inappropiate">Potential scammer</option>
+      <option value="Order">Order</option>
+    </select>
+  </div>
+  <label for="message">Leave a explaination</label>
+  <div>
+    <textarea id="message" cols="100" rows="10" [(ngModel)]="report.message"></textarea>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="report" cdkFocusInitial>Report!</button>
+</div>

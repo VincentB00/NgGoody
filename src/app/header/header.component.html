@@ -4,6 +4,7 @@
     <ul>
       <li><a href="#" routerLink="/home" routerLinkActive="custom-active">Home</a></li>
       <li><a href="#" (click)="$event.preventDefault();" routerLinkActive="custom-active">About</a></li>
+      <li *ngIf="authService.isLogin() && isAdmin()"><a href="#" routerLink="/admin" routerLinkActive="custom-active">Admin</a></li>
       <li *ngIf="!authService.isLogin()"><a href="#" routerLink="/register" routerLinkActive="custom-active">Register</a></li>
       <li *ngIf="!authService.isLogin()"><a href="#" routerLink="/login" routerLinkActive="custom-active">Login</a></li>
       <li  *ngIf="authService.isLogin()">
@@ -12,7 +13,7 @@
           <ul class="drop-down">
             <li><a href="#" routerLink="/account/information">Account</a></li>
             <li><a href="#" routerLink="/account/my_post">My Post</a></li>
-            <li><a href="#" routerLink="/account/my_cart">Shopping cart</a></li>
+            <li><a href="#" routerLink="/account/my_offer">My Offer</a></li>
             <li><a href="#" routerLink="/account/my_order">My Order</a></li>
             <li><a href="#" (click)="$event.preventDefault(); signOut()">Sign Out</a></li>
           </ul>

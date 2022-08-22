@@ -1,0 +1,13 @@
+<div class="d-flex my-5 gap-5">
+  <div class="box align-self-start">
+      <h1 class="text-center my-2">Admin</h1>
+      <mat-selection-list [multiple]="false">
+          <!-- <mat-list-option style="font-size: large;" routerLink="./account_manager"> Account Manager </mat-list-option> -->
+          <mat-list-option style="font-size: large;" routerLink="./reported_post"> Reported Post </mat-list-option>
+        </mat-selection-list>
+  </div>
+  
+  <div>
+      <router-outlet></router-outlet>
+  </div>
+</div>

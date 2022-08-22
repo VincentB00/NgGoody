@@ -29,4 +29,12 @@ export class AccountMyOrderComponent implements OnInit {
     );
   }
 
+  cancelOrder(order: Order): void
+  {
+    order.status = 'CANCEL BY BUYER';
+    this.orderService.modifyOrder(order).subscribe(
+      res => {}
+    );
+  }
+
 }

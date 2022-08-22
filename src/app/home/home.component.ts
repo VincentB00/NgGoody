@@ -3,6 +3,7 @@ import { MatListOption, MatSelectionList } from '@angular/material/list';
 import { MatPaginator } from '@angular/material/paginator';
 import { Category, Item } from '../shared/model/Item.model';
 import { ItemService } from '../shared/service/item.service';
+import { UserService } from '../shared/service/user.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,9 @@ export class HomeComponent implements OnInit {
   start: number = 0;
   end: number = 10;
 
-  constructor(public itemService: ItemService) { }
+  constructor(
+    public itemService: ItemService,
+    private userService: UserService) { }
 
   ngOnInit() 
   {
@@ -38,6 +41,7 @@ export class HomeComponent implements OnInit {
         this.originalItems = structuredClone(res);
         this.items = this.originalItems;
         this.item_length = this.originalItems.length;
+        this.filter();
       }
     );
   }
@@ -81,6 +85,10 @@ export class HomeComponent implements OnInit {
                item.item_condition.toLowerCase() === this.searchText;
       })
     }
+
+    // fillter banded item
+    if(!this.userService.isLogin() || !(this.userService.isAdmin() || this.userService.isOwner()))
+      tempItems = tempItems.filter((item) => item.status !== 'BANDED');
     
     this.item_length = tempItems.length;
     this.items = tempItems.slice(this.start, this.end);

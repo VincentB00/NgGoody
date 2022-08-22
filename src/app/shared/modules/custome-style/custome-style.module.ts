@@ -20,11 +20,15 @@ import { FilterNamePipe } from '../../pipes/filter-name.pipe';
 import { ConfirmDialog } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 import { FilterNameReversePipe } from '../../pipes/filter-name-reverse.pipe';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { ReportDialog } from 'src/app/dialog/report-dialog/report-dialog.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     FilterNamePipe,
     ConfirmDialog,
-    FilterNameReversePipe
+    FilterNameReversePipe,
+    ReportDialog
   ],
   imports: [
     MatButtonModule,
@@ -43,7 +47,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     CdkTableModule,
     MatMenuModule,
     MatFormFieldModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FormsModule,
+    CommonModule
   ],
   exports: [
     MatButtonModule,
@@ -65,7 +71,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     FilterNamePipe,
     ConfirmDialog,
     FilterNameReversePipe,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReportDialog
   ]
 })
 export class CustomStyleModule { }

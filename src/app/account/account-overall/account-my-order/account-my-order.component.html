@@ -2,6 +2,9 @@
     <ul>
         <li><h1>Buying</h1></li>
         <hr>
+        <li *ngIf="buyingOrders.length <= 0">
+            <h1>Looking empty 😢</h1>
+        </li>
         <li>
             <div *ngFor="let order of buyingOrders">
                 <mat-expansion-panel hideToggle>
@@ -19,7 +22,7 @@
                         <li>Order Status: {{order.status}}</li>
                         <li>
                             <button mat-raised-button color="primary" style="width: 100%;" [routerLink]="['/order/', order.id]">See more detail</button>
-                            <button mat-raised-button color="warn" style="width: 100%;">Cancel order</button>
+                            <button *ngIf="order.status !== 'CANCEL BY BUYER'" mat-raised-button color="warn" style="width: 100%;" (click)="cancelOrder(order)">Cancel order</button>
                         </li>
                     </ul>
                 </mat-expansion-panel>
@@ -32,6 +35,9 @@
     <ul>
         <li><h1>Selling</h1></li>
         <hr>
+        <li *ngIf="buyingOrders.length <= 0">
+            <h1>Looking empty 😢</h1>
+        </li>
         <li>
             <div *ngFor="let order of sellingOrders">
                 <mat-expansion-panel hideToggle>

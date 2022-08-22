@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Response } from '../model/Response.model';
@@ -9,13 +10,81 @@ import { AuthService } from './auth.service';
 const headers= new HttpHeaders()
   .set('content-type', 'application/json');
 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService
 {
+  rolesStack = {
+    'login': () => this.isLogin(),
+    'admin': () => this.isAdmin(),
+    'owner': () => this.isOwner()
+  };
+  
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) { }
+
+  constructor(
+    private httpClient: HttpClient, 
+    private authService: AuthService,
+    private router: Router
+    ) { }
+
+
+
+  isAdminOrOwner(): boolean
+  {
+    return this.isAdmin() || this.isOwner();
+  }
+
+  isAdmin(): boolean
+  {
+    return this.getCurrentLoginUser().userRoles.some((r) => r.type.toLowerCase() === "admin");
+  }
+
+  isOwner(): boolean
+  {
+    return this.getCurrentLoginUser().userRoles.some((r) => r.type.toLowerCase() === "owner");
+  }
+
+  isLogin(): boolean
+  {
+    return this.authService.isLogin();
+  }
+
+  autoCheckAllUserRoles(roles: string[], redirect: string[]): void
+  {
+    roles.forEach((role) => {
+      for (const [key, value] of Object.entries(this.rolesStack)) 
+      {
+        let isAcceptRole = value();
+        if(key === role && !isAcceptRole)
+          this.router.navigate(redirect);
+      }
+    })
+  }
+
+  autoCheckAnyUserRoles(roles: string[], redirect: string[]): void
+  {
+    let found = false;
+    roles.forEach((role) => {
+      if(found)
+        return;
+      for (const [key, value] of Object.entries(this.rolesStack)) 
+      {
+        let isAcceptRole = value();
+        if(key === role && isAcceptRole)
+        {
+          found = true;
+          break;
+        }
+      }
+    })
+
+    if(!found)
+      this.router.navigate(redirect);
+  }
 
   getCurrentLoginUser(): User
   {

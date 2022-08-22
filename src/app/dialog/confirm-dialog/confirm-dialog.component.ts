@@ -8,14 +8,20 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ConfirmDialog implements OnInit {
 
+  yes: string = 'Yes';
+  no: string = 'No';
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {title: string, message: string, yes?: string, no?: string}
     ) { }
 
   ngOnInit() 
   {
-    this.data.no ? this.data.no : this.data.no = 'No';
-    this.data.yes ? this.data.yes : this.data.yes = 'Yes';
+    if(this.data.yes)
+      this.yes = this.data.yes;
+
+    if(this.data.no || this.data.no === '')
+      this.no = this.data.no;
   }
 
 }

@@ -1,5 +1,5 @@
 <div *ngFor="let type of offerService.getStatusTypes()" class="mb-5">
-    <div class="box">
+    <div class="box" *ngIf="getAllOfferByStatus(type.status).length > 0">
         <ul>
             <li><H1>{{type.status}} Offer</H1></li>
             <li><hr></li>

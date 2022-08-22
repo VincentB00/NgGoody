@@ -24,16 +24,16 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
   },
   {
     path: 'item/:id',
-    // canActivate: [AuthGuard],
     component: ItemDetailComponent
   },
   {
     path: 'offer',
+    canActivate: [AuthGuard],
     component: OfferComponent
   },
   {
@@ -42,7 +42,12 @@ const routes: Routes = [
   },
   {
     path: 'order/:id',
+    canActivate: [AuthGuard],
     component: OrderDetailComponent
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: "**",

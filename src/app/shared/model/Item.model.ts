@@ -41,3 +41,13 @@ export interface Offer
     status?: string;
     create_time?: string;
 }
+
+export interface Report 
+{
+    id?:      number;
+    item?:    Item;
+    user?:    User;
+    reason:  string;
+    message: string;
+    status?:  string;
+}

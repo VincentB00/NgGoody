@@ -30,4 +30,10 @@ export class HeaderComponent implements OnInit {
       error => this.authService.clearUser()
     );
   }
+
+  isAdmin(): boolean
+  {
+    let user = this.authService.getUser();
+    return user.userRoles.some((role) => role.type.toLowerCase() === 'admin' || role.type.toLowerCase() === 'owner');
+  }
 }

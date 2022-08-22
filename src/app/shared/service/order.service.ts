@@ -39,4 +39,11 @@ export class OrderService {
     delete shippingAddress.user;
     return this.httpClient.post<Response>(`${environment.api}/orders/offer/${offer.id}`, shippingAddress, {withCredentials:true});
   }
+
+  modifyOrder(order: Order): Observable<Response>
+  {
+    delete order.user.create_time;
+    delete order.purchase_date;
+    return this.httpClient.put<Response>(`${environment.api}/orders`, order, {withCredentials:true});
+  }
 }

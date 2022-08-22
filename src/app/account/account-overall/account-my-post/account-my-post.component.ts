@@ -4,6 +4,7 @@ import { User } from 'src/app/shared/model/User.model';
 import { ItemService } from 'src/app/shared/service/item.service';
 import { MailService } from 'src/app/shared/service/mail.service';
 import { OfferService } from 'src/app/shared/service/offer.service';
+import { UserService } from 'src/app/shared/service/user.service';
 
 @Component({
   selector: 'app-account-my-post',
@@ -15,7 +16,11 @@ export class AccountMyPostComponent implements OnInit {
   items: Item[] = [];
   offers: Offer[] = [];
 
-  constructor(private itemService: ItemService, public offerService: OfferService, private mailService: MailService) { }
+  constructor(
+    private itemService: ItemService, 
+    public offerService: OfferService, 
+    private mailService: MailService,
+    public userService: UserService) { }
 
   ngOnInit(): void 
   {
